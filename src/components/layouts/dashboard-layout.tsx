@@ -1,4 +1,4 @@
-import { Home, PanelLeft, Folder, Users, User2 } from 'lucide-react';
+import { Home, PanelLeft, User2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { NavLink, useNavigate, useNavigation } from 'react-router';
 
@@ -7,16 +7,16 @@ import { Button } from '@/components/ui/button';
 import { Drawer, DrawerContent, DrawerTrigger } from '@/components/ui/drawer';
 import { paths } from '@/config/paths';
 import { useLogout } from '@/lib/auth';
-import { ROLES, useAuthorization } from '@/lib/authorization';
 import { cn } from '@/utils/cn';
 
-import type { JSX } from 'react';
+import type { ReactNode } from 'react';
+
+import type { LucideIcon } from 'lucide-react';
 
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '../ui/dropdown';
 import { Link } from '../ui/link';
@@ -24,16 +24,14 @@ import { Link } from '../ui/link';
 type SideNavigationItem = {
   name: string;
   to: string;
-  icon: (props: React.SVGProps<SVGSVGElement>) => JSX.Element;
+  icon: LucideIcon;
 };
 
 const Logo = () => {
   return (
     <Link className="flex items-center text-white" to={paths.home.getHref()}>
-      <img className="h-8 w-auto" src={logo} alt="Workflow" />
-      <span className="text-sm font-semibold text-white">
-        Bulletproof React
-      </span>
+      <img className="h-8 w-auto" src={logo} alt="Logo" />
+      <span className="text-sm font-semibold text-white">Portfolio</span>
     </Link>
   );
 };
@@ -50,27 +48,20 @@ const Progress = () => {
   }
 
   useEffect(() => {
-    if (state === 'loading') {
-      const timer = setInterval(() => {
-        setProgress((oldProgress) => {
-          if (oldProgress === 100) {
-            clearInterval(timer);
-            return 100;
-          }
-          const newProgress = oldProgress + 10;
-          return newProgress > 100 ? 100 : newProgress;
-        });
-      }, 300);
+    if (state !== 'loading') return;
 
-      return () => {
-        clearInterval(timer);
-      };
-    }
+    const timer = setInterval(() => {
+      setProgress((oldProgress) => Math.min(oldProgress + 10, 100));
+    }, 300);
+
+    return () => {
+      clearInterval(timer);
+    };
   }, [state]);
 
   if (state !== 'loading') {
     return null;
-  }
+  };
 
   return (
     <div
@@ -80,20 +71,15 @@ const Progress = () => {
   );
 };
 
-export function DashboardLayout({ children }: { children: React.ReactNode }) {
+export function DashboardLayout({ children }: { children: ReactNode }) {
   const navigate = useNavigate();
   const logout = useLogout({
     onSuccess: () => navigate(paths.auth.login.getHref(location.pathname)),
   });
-  const { checkAccess } = useAuthorization();
-  const navigation = [
+
+  const navigation: SideNavigationItem[] = [
     { name: 'Dashboard', to: paths.app.dashboard.getHref(), icon: Home },
-    checkAccess({ allowedRoles: [ROLES.ADMIN] }) && {
-      name: 'Users',
-      to: paths.app.users.getHref(),
-      icon: Users,
-    },
-  ].filter(Boolean) as SideNavigationItem[];
+  ];
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
@@ -106,7 +92,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
             <NavLink
               key={item.name}
               to={item.to}
-              end={item.name !== 'Discussions'}
+              end
               className={({ isActive }) =>
                 cn(
                   'text-gray-300 hover:bg-gray-700 hover:text-white',
@@ -184,15 +170,8 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuItem
-                onClick={() => navigate(paths.app.profile.getHref())}
-                className={cn('block px-4 py-2 text-sm text-gray-700')}
-              >
-                Your Profile
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem
                 className={cn('block w-full px-4 py-2 text-sm text-gray-700')}
-                onClick={() => logout.mutate({})}
+                onClick={() => logout.mutate()}
               >
                 Sign Out
               </DropdownMenuItem>
@@ -205,4 +184,4 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
       </div>
     </div>
   );
-}
+};
