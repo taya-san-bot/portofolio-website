@@ -4,7 +4,9 @@ import { NavLink, useNavigate, useNavigation } from 'react-router';
 
 import logo from '@/assets/logo.svg';
 import { Button } from '@/components/ui/button';
-import { Drawer, DrawerContent, DrawerTrigger } from '@/components/ui/drawer';
+// NOTE: these four do not exist yet. They are produced by:
+//   npx shadcn@latest add button dropdown-menu sheet
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { paths } from '@/config/paths';
 import { useLogout } from '@/lib/auth';
 import { cn } from '@/utils/cn';
@@ -18,8 +20,8 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '../ui/dropdown';
-import { Link } from '../ui/link';
+} from '@/components/ui/dropdown-menu';
+import { Link } from '@/components/ui/link';
 
 type SideNavigationItem = {
   name: string;
@@ -116,17 +118,18 @@ export function DashboardLayout({ children }: { children: ReactNode }) {
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-60">
         <header className="sticky top-0 z-30 flex h-14 items-center justify-between gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:justify-end sm:border-0 sm:bg-transparent sm:px-6">
           <Progress />
-          <Drawer>
-            <DrawerTrigger asChild>
+          <Sheet>
+            <SheetTrigger asChild>
               <Button size="icon" variant="outline" className="sm:hidden">
                 <PanelLeft className="size-5" />
                 <span className="sr-only">Toggle Menu</span>
               </Button>
-            </DrawerTrigger>
-            <DrawerContent
+            </SheetTrigger>
+            <SheetContent
               side="left"
               className="bg-black pt-10 text-white sm:max-w-60"
             >
+              <SheetTitle className="sr-only">Navigation</SheetTitle>
               <nav className="grid gap-6 text-lg font-medium">
                 <div className="flex h-16 shrink-0 items-center px-4">
                   <Logo />
@@ -155,8 +158,8 @@ export function DashboardLayout({ children }: { children: ReactNode }) {
                   </NavLink>
                 ))}
               </nav>
-            </DrawerContent>
-          </Drawer>
+            </SheetContent>
+          </Sheet>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
