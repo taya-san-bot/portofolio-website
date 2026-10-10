@@ -6,13 +6,13 @@ const models = {
     id: primaryKey(nanoid),
     project_url: String,
     title: String,
-    body: String
+    body: String,
   },
   user: {
     id: primaryKey(nanoid),
     password: String,
-  }
-}
+  },
+};
 
 export const db = factory(models);
 
@@ -22,10 +22,10 @@ const dbFilePath = 'mocked-db.json';
 
 export const loadDb = async () => {
   if (typeof window === 'undefined') {
-    const { readFile, writeFile } = await import ('fs/promises');
+    const { readFile, writeFile } = await import('fs/promises');
     try {
       const data = await readFile(dbFilePath, 'utf8');
-      return JSON.parse(data)
+      return JSON.parse(data);
     } catch (error) {
       if ((error as { code?: string })?.code === 'ENOENT') {
         const emptyDB = {};
@@ -36,9 +36,9 @@ export const loadDb = async () => {
         return null;
       }
     }
-  };
+  }
 
-  return JSON.parse(window.localStorage.getItem('msw-db') || '{}')
+  return JSON.parse(window.localStorage.getItem('msw-db') || '{}');
 };
 
 export const storeDb = async (data: string) => {
@@ -47,7 +47,7 @@ export const storeDb = async (data: string) => {
     await writeFile(dbFilePath, data);
   } else {
     window.localStorage.setItem('msw-db', data);
-  };
+  }
 };
 
 export const persistDb = async (model: Model) => {
@@ -65,14 +65,14 @@ export const initializeDb = async () => {
       dataEntries?.forEach((entry: Record<string, unknown>) => {
         model.create(entry);
       });
-    };
+    }
   });
 };
 
 export const resetDb = async () => {
   if (typeof window === 'undefined') {
-    storeDb("{}")
+    storeDb('{}');
   } else {
     window.localStorage.clear();
-  };
+  }
 };

@@ -47,7 +47,7 @@ const Progress = () => {
   if (lastPath !== location?.pathname) {
     setLastPath(location?.pathname);
     setProgress(0);
-  };
+  }
 
   useEffect(() => {
     if (state === 'loading') {
@@ -74,7 +74,7 @@ const Progress = () => {
 
   return (
     <div
-      className="fixed left-0 top-0 h-1 bg-blue-500 transition-all duration-200 ease-in-out"
+      className="fixed top-0 left-0 h-1 bg-blue-500 transition-all duration-200 ease-in-out"
       style={{ width: `${progress}%` }}
     ></div>
   );
@@ -110,7 +110,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
               className={({ isActive }) =>
                 cn(
                   'text-gray-300 hover:bg-gray-700 hover:text-white',
-                  'group flex flex-1 w-full items-center rounded-md p-2 text-base font-medium',
+                  'group flex w-full flex-1 items-center rounded-md p-2 text-base font-medium',
                   isActive && 'bg-gray-900 text-white',
                 )
               }
@@ -153,7 +153,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
                     className={({ isActive }) =>
                       cn(
                         'text-gray-300 hover:bg-gray-700 hover:text-white',
-                        'group flex flex-1 w-full items-center rounded-md p-2 text-base font-medium',
+                        'group flex w-full flex-1 items-center rounded-md p-2 text-base font-medium',
                         isActive && 'bg-gray-900 text-white',
                       )
                     }
@@ -191,7 +191,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem
-                className={cn('block px-4 py-2 text-sm text-gray-700 w-full')}
+                className={cn('block w-full px-4 py-2 text-sm text-gray-700')}
                 onClick={() => logout.mutate({})}
               >
                 Sign Out

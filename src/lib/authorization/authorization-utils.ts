@@ -4,8 +4,8 @@ export const useAuthorization = () => {
   const user = useUser();
   const checkAccess = () => {
     if (user.data) {
-      return true
-    };
+      return true;
+    }
 
     return false;
   };

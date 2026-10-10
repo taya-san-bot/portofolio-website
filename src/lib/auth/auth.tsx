@@ -8,10 +8,10 @@ import { useUser } from './auth-utils';
 
 export const AuthLoader = ({
   children,
-  renderLoading
+  renderLoading,
 }: {
-  children: ReactNode,
-  renderLoading: () => ReactNode
+  children: ReactNode;
+  renderLoading: () => ReactNode;
 }) => {
   const user = useUser();
 
@@ -19,10 +19,10 @@ export const AuthLoader = ({
   if (user.isError) return <div>Something went wrong here</div>;
   if (!user) return null;
 
-  return children
+  return children;
 };
 
-export const ProtectedRoute = ({ children }: {children: ReactNode}) => {
+export const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   const user = useUser();
   const location = useLocation();
 
@@ -30,7 +30,7 @@ export const ProtectedRoute = ({ children }: {children: ReactNode}) => {
     return (
       <Navigate to={paths.auth.login.getHref(location.pathname)} replace />
     );
-  };
+  }
 
-  return children
-}
+  return children;
+};

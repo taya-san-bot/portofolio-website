@@ -14,15 +14,15 @@ import { Suspense } from 'react';
 import type { ReactNode } from 'react';
 
 type AppProviderProps = {
-  children: ReactNode
+  children: ReactNode;
 };
 
 export const AppProvider = ({ children }: AppProviderProps) => {
   const [queryClient] = React.useState(
     () =>
       new QueryClient({
-        defaultOptions: queryConfig
-      })
+        defaultOptions: queryConfig,
+      }),
   );
 
   return (
@@ -50,5 +50,5 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         </HelmetProvider>
       </ErrorBoundary>
     </Suspense>
-  )
-}
+  );
+};

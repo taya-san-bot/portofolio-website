@@ -10,24 +10,22 @@ import { buttonVariants } from './button-variants';
 
 export type ButtonProps = React.ComponentPropsWithRef<'button'> &
   VariantProps<typeof buttonVariants> & {
-  asChild?: boolean,
-  isLoading?: boolean,
-  icon?: React.ReactNode
-}
+    asChild?: boolean;
+    isLoading?: boolean;
+    icon?: React.ReactNode;
+  };
 
-export const Button = (
-  {
-    className,
-    variant,
-    size,
-    asChild = false,
-    isLoading,
-    icon,
-    ref,
-    children,
-    ...props
-  }: ButtonProps
-) => {
+export const Button = ({
+  className,
+  variant,
+  size,
+  asChild = false,
+  isLoading,
+  icon,
+  ref,
+  children,
+  ...props
+}: ButtonProps) => {
   const Comp = asChild ? Slot : 'button';
 
   return (
@@ -38,11 +36,11 @@ export const Button = (
     >
       {isLoading && <Spinner size="sm" className="text-current" />}
       {!isLoading && icon && <span className="mr-2">{icon}</span>}
-      {
-        asChild
-          ? <Slottable>{children}</Slottable>
-          : <span className="mx-2">{children}</span>
-      }
+      {asChild ? (
+        <Slottable>{children}</Slottable>
+      ) : (
+        <span className="mx-2">{children}</span>
+      )}
     </Comp>
   );
 };

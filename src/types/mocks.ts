@@ -1,9 +1,9 @@
 export type User = {
-  password: string
+  password: string;
 };
 
 export type CustomProject = {
-  project_url: string,
-  title: string,
-  body: string
+  project_url: string;
+  title: string;
+  body: string;
 };

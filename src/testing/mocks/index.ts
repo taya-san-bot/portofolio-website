@@ -6,5 +6,5 @@ export const enableMocking = async () => {
     const { initializeDb } = await import('./db');
     await initializeDb();
     return worker.start();
-  };
+  }
 };

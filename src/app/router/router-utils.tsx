@@ -1,32 +1,34 @@
-import type { QueryClient } from "@tanstack/react-query";
-import { createBrowserRouter } from "react-router";
-import type { ActionFunction, LoaderFunction } from "react-router";
+import type { QueryClient } from '@tanstack/react-query';
+import { createBrowserRouter } from 'react-router';
+import type { ActionFunction, LoaderFunction } from 'react-router';
 
-import { paths } from "@/config/paths";
-import { ProtectedRoute } from "@/lib/auth";
+import { paths } from '@/config/paths';
+import { ProtectedRoute } from '@/lib/auth';
 
 import {
   default as AppRoot,
-  ErrorBoundary as AppRootErrorBoundary
+  ErrorBoundary as AppRootErrorBoundary,
 } from '../routes/app/root';
 
-import type { ComponentType } from "react";
+import type { ComponentType } from 'react';
 
 type RouteModule = {
-  default: ComponentType,
-  clientLoader?: (queryClient: QueryClient) => LoaderFunction,
-  clientAction?: (queryClient: QueryClient) => ActionFunction
+  default: ComponentType;
+  clientLoader?: (queryClient: QueryClient) => LoaderFunction;
+  clientAction?: (queryClient: QueryClient) => ActionFunction;
 };
 
-const convert = (queryClient: QueryClient) => <T extends RouteModule>(m: T) => {
-  const { clientLoader, clientAction, default: Component, ...rest } = m;
-  return {
-    ...rest,
-    loader: clientLoader?.(queryClient),
-    action: clientAction?.(queryClient),
-    Component,
+const convert =
+  (queryClient: QueryClient) =>
+  <T extends RouteModule>(m: T) => {
+    const { clientLoader, clientAction, default: Component, ...rest } = m;
+    return {
+      ...rest,
+      loader: clientLoader?.(queryClient),
+      action: clientAction?.(queryClient),
+      Component,
+    };
   };
-};
 
 export const createAppRouter = (queryClient: QueryClient) =>
   createBrowserRouter([
@@ -59,8 +61,7 @@ export const createAppRouter = (queryClient: QueryClient) =>
         },
         {
           path: paths.app.edit.path,
-          lazy: () =>
-            import('../routes/app/edit').then(convert(queryClient)),
+          lazy: () => import('../routes/app/edit').then(convert(queryClient)),
         },
       ],
     },

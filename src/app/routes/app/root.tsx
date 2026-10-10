@@ -12,4 +12,4 @@ const AppRoot = () => {
   );
 };
 
-export default AppRoot
+export default AppRoot;

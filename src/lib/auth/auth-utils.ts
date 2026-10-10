@@ -14,12 +14,12 @@ const getUser = async (): Promise<User> => {
 };
 
 const logout = (): Promise<void> => {
-  return api.post('/auth/logout')
+  return api.post('/auth/logout');
 };
 
 export const loginInputSchema = z.object({
   password: z.string().min(5, 'Required'),
-})
+});
 
 export type LoginInput = z.infer<typeof loginInputSchema>;
 
@@ -27,29 +27,31 @@ const loginWithPassword = async (data: LoginInput): Promise<AuthResponse> => {
   return api.post('/auth/login', data);
 };
 
-export const AUTH_USER_KEY = ["authenticated-user"];
+export const AUTH_USER_KEY = ['authenticated-user'];
 
 export const useUser = () => {
   return useQuery({
     queryKey: AUTH_USER_KEY,
-    queryFn: getUser
+    queryFn: getUser,
   });
 };
 
-export const useLogin = (mutationConfig?: MutationConfig<typeof loginWithPassword>) => {
+export const useLogin = (
+  mutationConfig?: MutationConfig<typeof loginWithPassword>,
+) => {
   const queryClient = useQueryClient();
   const { onSuccess, ...restConfig } = mutationConfig || {};
 
   return useMutation({
     mutationFn: (data: LoginInput) => {
-      return loginWithPassword(data)
+      return loginWithPassword(data);
     },
     onSuccess: (user, ...restArgs) => {
-      queryClient.setQueryData(AUTH_USER_KEY, user)
-      onSuccess?.(user, ...restArgs)
+      queryClient.setQueryData(AUTH_USER_KEY, user);
+      onSuccess?.(user, ...restArgs);
     },
-    ...restConfig
-  })
+    ...restConfig,
+  });
 };
 
 export const useLogout = (mutationConfig?: MutationConfig<typeof logout>) => {
@@ -62,6 +64,6 @@ export const useLogout = (mutationConfig?: MutationConfig<typeof logout>) => {
       queryClient.setQueryData(AUTH_USER_KEY, null);
       onSuccess?.(...args);
     },
-    ...restConfig
+    ...restConfig,
   });
 };
