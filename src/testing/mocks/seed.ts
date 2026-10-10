@@ -58,10 +58,10 @@ export const seedDb = async () => {
   if (db.user.getAll().length === 0) {
     db.user.create({ password: hash(ADMIN_PASSWORD) });
     await persistDb('user');
-  };
+  }
 
   if (db.project.getAll().length === 0) {
     projects.forEach((project) => db.project.create(project));
     await persistDb('project');
-  };
+  }
 };

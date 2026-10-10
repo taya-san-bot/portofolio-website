@@ -18,7 +18,7 @@ export const projectsHandlers = [
         { message: error instanceof Error ? error.message : 'Server Error' },
         { status: 500 },
       );
-    };
+    }
   }),
 
   http.get(`${env.API_URL}/projects/:projectId`, async ({ params }) => {
@@ -40,7 +40,7 @@ export const projectsHandlers = [
           { message: 'Project not found' },
           { status: 404 },
         );
-      };
+      }
 
       return HttpResponse.json({ data: project });
     } catch (error) {
@@ -48,6 +48,6 @@ export const projectsHandlers = [
         { message: error instanceof Error ? error.message : 'Server Error' },
         { status: 500 },
       );
-    };
+    }
   }),
 ];

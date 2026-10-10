@@ -9,11 +9,11 @@ const ProjectRoute = () => {
 
   if (projectQuery.isPending) {
     return <p className="text-muted-foreground">Loading project...</p>;
-  };
+  }
 
   if (projectQuery.isError) {
     return <p className="text-destructive">Could not load this project.</p>;
-  };
+  }
 
   const project = projectQuery.data.data;
 
@@ -40,7 +40,7 @@ const ProjectRoute = () => {
         </a>
       </header>
 
-      <div className="whitespace-pre-wrap text-sm leading-relaxed">
+      <div className="text-sm leading-relaxed whitespace-pre-wrap">
         {project.body}
       </div>
     </article>

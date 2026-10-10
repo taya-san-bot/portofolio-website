@@ -25,10 +25,7 @@ type UseProjectOptions = {
   queryConfig?: QueryConfig<typeof getProjectQueryOptions>;
 };
 
-export const useProject = ({
-  projectId,
-  queryConfig,
-}: UseProjectOptions) => {
+export const useProject = ({ projectId, queryConfig }: UseProjectOptions) => {
   return useQuery({
     ...getProjectQueryOptions(projectId),
     ...queryConfig,

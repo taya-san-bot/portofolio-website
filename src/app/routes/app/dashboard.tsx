@@ -8,17 +8,17 @@ const DashboardRoute = () => {
 
   if (projectsQuery.isPending) {
     return <p className="text-muted-foreground">Loading projects...</p>;
-  };
+  }
 
   if (projectsQuery.isError) {
     return <p className="text-destructive">Could not load projects.</p>;
-  };
+  }
 
   const projects = projectsQuery.data.data;
 
   if (projects.length === 0) {
     return <p className="text-muted-foreground">No projects yet.</p>;
-  };
+  }
 
   return (
     <div className="flex w-full flex-col gap-6">

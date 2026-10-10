@@ -6,7 +6,12 @@ import logo from '@/assets/logo.svg';
 import { Button } from '@/components/ui/button';
 // NOTE: these four do not exist yet. They are produced by:
 //   npx shadcn@latest add button dropdown-menu sheet
-import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import {
+  Sheet,
+  SheetContent,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet';
 import { paths } from '@/config/paths';
 import { useLogout } from '@/lib/auth';
 import { cn } from '@/utils/cn';
@@ -63,7 +68,7 @@ const Progress = () => {
 
   if (state !== 'loading') {
     return null;
-  };
+  }
 
   return (
     <div
@@ -187,4 +192,4 @@ export function DashboardLayout({ children }: { children: ReactNode }) {
       </div>
     </div>
   );
-};
+}

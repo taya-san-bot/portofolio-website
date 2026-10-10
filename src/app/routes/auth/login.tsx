@@ -31,7 +31,7 @@ const LoginRoute = () => {
     if (!parsed.success) {
       setValidationError(parsed.error.issues[0]?.message || 'Invalid input');
       return;
-    };
+    }
 
     login.mutate(parsed.data);
   };

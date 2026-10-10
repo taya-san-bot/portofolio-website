@@ -18,9 +18,7 @@ const EditRoute = () => {
 
       <p className="text-sm text-muted-foreground">
         The editor goes here. The route already knows which project it is:
-        <code className="ml-1 rounded bg-muted px-1.5 py-0.5">
-          {projectId}
-        </code>
+        <code className="ml-1 rounded bg-muted px-1.5 py-0.5">{projectId}</code>
       </p>
     </div>
   );
